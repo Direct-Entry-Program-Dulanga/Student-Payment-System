@@ -2,7 +2,6 @@ package Controller;
 
 import Model.Admin;
 import Model.AdminTM;
-import Service.AdminService;
 import Services.AdminService;
 import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXButton;
@@ -10,10 +9,9 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.scene.control.*;
 import javafx.scene.layout.AnchorPane;
-import util.MaterialUI;
-import util.MaterialUIError;
 
 public class AdminStudentFormController {
+    private final AdminService adminService = new AdminService();
     public Label lblTitle;
     public TextField txtNIC;
     public TextField txtStudentName;
@@ -27,8 +25,6 @@ public class AdminStudentFormController {
     public ToggleGroup course;
     public JFXButton btnSave;
     public AnchorPane root;
-
-    private final AdminService adminService = new AdminService();
     public Label lblNIC;
     public Label lblName;
     public Label lblAddress;
@@ -38,13 +34,13 @@ public class AdminStudentFormController {
     public Label lblPayment;
 
 
-    public void initialize(){
+    public void initialize() {
         MaterialUI.paintTextFields(txtStudentName, txtAddress, txtEmail, txtPhone, txtNIC, txtPayment, txtRegister);
 //        setCourse();
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
 
-            if (root.getUserData() != null){
+            if (root.getUserData() != null) {
                 AdminTM tm = (AdminTM) root.getUserData();
                 Admin admin = adminService.findStudent(tm.getNic());
 
@@ -64,9 +60,9 @@ public class AdminStudentFormController {
     }
 
     public void btnSave_OnAction(ActionEvent actionEvent) {
-        if(!isValidated()){
+        if (!isValidated()) {
             return;
-        }else {
+        } else {
             Admin admin = new Admin(
                     txtNIC.getText(),
                     txtStudentName.getText(),
@@ -108,15 +104,15 @@ public class AdminStudentFormController {
 ////            MaterialUIError.paintTextFields(txtNIC);
 //            return false;
 //    }
-        if(!(nic.length() == 10 && nic.matches("\\d{9}[vV]"))){
+        if (!(nic.length() == 10 && nic.matches("\\d{9}[vV]"))) {
             lblNIC.setText("(!) Invalid NIC");
             return false;
-        }else if (!(fullName.trim().length() >= 3 || fullName.matches("[A-za-z\\s]|[.]"))) {
+        } else if (!(fullName.trim().length() >= 3 || fullName.matches("[A-za-z\\s]|[.]"))) {
             lblName.setText("(!) Invalid User Name");
             lblNIC.setVisible(false);
             txtStudentName.requestFocus();
             return false;
-        } else if (!(address.trim().length() >= 4 &&  address.matches("^[a-zA-Z0-9\\s,-/\\\\]+$"))) {
+        } else if (!(address.trim().length() >= 4 && address.matches("^[a-zA-Z0-9\\s,-/\\\\]+$"))) {
             lblAddress.setText("(!) Invalid Address");
             lblName.setVisible(false);
             txtAddress.requestFocus();
@@ -131,12 +127,12 @@ public class AdminStudentFormController {
             lblPhone.setVisible(false);
             txtEmail.requestFocus();
             return false;
-        }else if(!register.matches("^\\d{3,}[.]\\d$")) {
+        } else if (!register.matches("^\\d{3,}[.]\\d$")) {
             lblRegister.setText("(!) Invalid Register Payment");
             lblEmail.setVisible(false);
             txtRegister.requestFocus();
             return false;
-        }else if(!payment.matches("^\\d{3,}[.]\\d$")){
+        } else if (!payment.matches("^\\d{3,}[.]\\d$")) {
             lblPayment.setText("(!) Invalid Full Payment");
             lblRegister.setVisible(false);
             txtPayment.requestFocus();
