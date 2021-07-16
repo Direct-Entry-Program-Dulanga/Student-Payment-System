@@ -1,19 +1,22 @@
 package Model;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class PaymentTM {
     private String cid;
     private String courseName;
-    private float register;
-    private float payment;
+    private String register;
+    private String payment;
 
     public PaymentTM() {
     }
 
-    public PaymentTM(String cid, String courseName, float register, float payment) {
-        this.cid = cid;
-        this.courseName = courseName;
-        this.register = register;
-        this.payment = payment;
+    public PaymentTM(String cid, String courseName, String register, String payment) {
+        this.setCid(cid);
+        this.setCourseName(courseName);
+        this.setRegister(register);
+        this.setPayment(payment);
     }
 
     public String getCid() {
@@ -32,19 +35,29 @@ public class PaymentTM {
         this.courseName = courseName;
     }
 
-    public float getRegister() {
+    public String getRegister() {
         return register;
     }
 
-    public void setRegister(float register) {
+    public void setRegister(String register) {
         this.register = register;
     }
 
-    public float getPayment() {
+    public String getPayment() {
         return payment;
     }
 
-    public void setPayment(float payment) {
+    public void setPayment(String payment) {
         this.payment = payment;
+    }
+
+    @Override
+    public String toString() {
+        return "PaymentTM{" +
+                "cid='" + cid + '\'' +
+                ", courseName='" + courseName + '\'' +
+                ", register='" + register + '\'' +
+                ", payment='" + payment + '\'' +
+                '}';
     }
 }
