@@ -12,11 +12,10 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import util.MaterialUI;
-import util.MaterialUIError;
 
 
 public class PaymentEditFormController {
+    private final PaymentService paymentService = new PaymentService();
     public AnchorPane root;
     public TextField txtCourseID;
     public Label lblCID;
@@ -29,16 +28,13 @@ public class PaymentEditFormController {
     public JFXButton btnSave;
     public Label lblTitle;
 
-    private final PaymentService paymentService = new PaymentService();
-
-
-    public void initialize(){
+    public void initialize() {
         MaterialUI.paintTextFields(txtCourseID, txtCourseName, txtRegister, txtPayment);
 //        setCourse();
 
-        Platform.runLater(()->{
+        Platform.runLater(() -> {
 
-            if (root.getUserData() != null){
+            if (root.getUserData() != null) {
                 PaymentTM tm = (PaymentTM) root.getUserData();
                 Payment payment = paymentService.findStudent(tm.getCid());
 
@@ -55,9 +51,9 @@ public class PaymentEditFormController {
     }
 
     public void btnSave_OnAction(ActionEvent actionEvent) {
-        if(!isValidated()){
+        if (!isValidated()) {
             return;
-        }else {
+        } else {
             Payment payment = new Payment(
                     txtCourseID.getText(),
                     txtCourseName.getText(),
@@ -82,20 +78,20 @@ public class PaymentEditFormController {
         String register = txtRegister.getText();
         String payment = txtPayment.getText();
 
-        if(!(cid.length() == 10 && cid.matches("^[C][-]\\d{2,}"))){
+        if (!(cid.length() == 10 && cid.matches("^[C][-]\\d{2,}"))) {
             lblCID.setText("(!) Invalid NIC");
             return false;
-        }else if (!(CName.trim().length() >= 3 || CName.matches("[A-za-z\\s]|[.]"))) {
+        } else if (!(CName.trim().length() >= 3 || CName.matches("[A-za-z\\s]|[.]"))) {
             lblCName.setText("(!) Invalid User Name");
             lblCID.setVisible(false);
             txtCourseID.requestFocus();
             return false;
-        }else if(!register.matches("^\\d{3,}[.]\\d$")) {
+        } else if (!register.matches("^\\d{3,}[.]\\d$")) {
             lblRegister.setText("(!) Invalid Register Payment");
             lblRegister.setVisible(false);
             txtRegister.requestFocus();
             return false;
-        }else if(!payment.matches("^\\d{3,}[.]\\d$")){
+        } else if (!payment.matches("^\\d{3,}[.]\\d$")) {
             lblPayment.setText("(!) Invalid Full Payment");
             lblRegister.setVisible(false);
             txtPayment.requestFocus();
