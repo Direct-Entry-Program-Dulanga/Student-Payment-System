@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="jedis-3.6.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/Jedis/jedis-3.6.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Jedis/commons-pool2-2.9.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/Jedis/slf4j-api-1.7.30.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
