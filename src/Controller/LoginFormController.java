@@ -1,11 +1,11 @@
 package Controller;
 
+import Services.util.AppBarIcon;
+import Services.util.MaterialUI;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import util.AppBarIcon;
-import util.MaterialUI;
 
 public class LoginFormController {
 
@@ -17,7 +17,7 @@ public class LoginFormController {
     public AnchorPane pneLogin;
 
 
-    public void initialize(){
+    public void initialize() {
         MaterialUI.paintTextFields(txtPassword, txtUserName);
     }
 
@@ -27,7 +27,7 @@ public class LoginFormController {
             lblError.setVisible(false);
             lblError.setText("Success");
 
-        } else if (txtUserName.getText().equals("Admin") && txtPassword.getText().equals("123")){
+        } else if (txtUserName.getText().equals("Admin") && txtPassword.getText().equals("123")) {
             navigate("Student Payment System", "/View/HomeAdminForm.fxml");
             lblError.setVisible(false);
             lblError.setText("Success");
