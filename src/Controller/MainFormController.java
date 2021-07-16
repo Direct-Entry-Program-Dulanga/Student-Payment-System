@@ -13,9 +13,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javafx.util.Duration;
-import util.AppBarIcon;
-import util.NavActionListener;
-
 import java.io.IOException;
 
 public class MainFormController {
@@ -28,14 +25,14 @@ public class MainFormController {
     public AnchorPane pneStage;
     private double xMousePos;
     private double yMousePos;
-    private AppBarIcon icon =  AppBarIcon.NAV_ICON_NONE;
+    private AppBarIcon icon = AppBarIcon.NAV_ICON_NONE;
     private NavActionListener navActionListener = null;
 
     public void initialize() {
         initWindow();
     }
 
-    public void navigate(String title, String url, AppBarIcon icon){
+    public void navigate(String title, String url, AppBarIcon icon) {
         navigate(title, url, icon, null);
     }
 
@@ -49,9 +46,9 @@ public class MainFormController {
             this.navActionListener = navActionListener;
             imgNav.setVisible(true);
 
-            if (this.navActionListener == null){
+            if (this.navActionListener == null) {
                 imgNav.setCursor(Cursor.DEFAULT);
-            }else{
+            } else {
                 imgNav.setCursor(Cursor.HAND);
             }
 
@@ -132,8 +129,8 @@ public class MainFormController {
         imgMinimize.setOnMouseClicked(event -> ((Stage) (imgClose.getScene().getWindow())).setIconified(true));
     }
 
-    private void swapNavIcon(){
-        if (icon != AppBarIcon.NAV_ICON_NONE && navActionListener != null){
+    private void swapNavIcon() {
+        if (icon != AppBarIcon.NAV_ICON_NONE && navActionListener != null) {
             Image temp = imgNav.getImage();
 
             imgNav.setImage((Image) imgNav.getUserData());
