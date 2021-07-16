@@ -3,6 +3,9 @@ package Controller;
 import Model.Student;
 import Model.StudentTM;
 import Services.StudentService;
+import Services.StudentServiceRedis;
+import Services.exception.DuplicateEntryException;
+import Services.exception.NotFoundException;
 import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -28,7 +31,7 @@ public class NewStudentFormController {
     public Label lblEmail;
     public Label lblName;
 
-    private final StudentService studentService = new StudentService();
+    private final StudentServiceRedis studentService = new StudentServiceRedis();
 
     public void initialize() {
         MaterialUI.paintTextFields(txtStudentName, txtAddress, txtEmail, txtPhone, txtNIC);
@@ -40,11 +43,17 @@ public class NewStudentFormController {
 
             if (root.getUserData() != null) {
                 StudentTM tm = (StudentTM) root.getUserData();
-                Student student = studentService.findStudent(tm.getNic());
+                Student student = null;
+                try {
+                    student = studentService.findStudent(tm.getNic());
+                } catch (NotFoundException e) {
+                    e.printStackTrace();
+                    new Alert(Alert.AlertType.ERROR, "Something terribly went wrong, please contact DEPPO!", ButtonType.OK).show();
+                }
 
                 txtNIC.setEditable(false);
                 txtNIC.setText(student.getNic());
-                txtStudentName.setText(student.getFullName());
+                txtStudentName.setText(student.getName());
                 txtAddress.setText(student.getAddress());
                 txtPhone.setText(student.getContact());
                 txtEmail.setText(student.getEmail());
@@ -57,7 +66,7 @@ public class NewStudentFormController {
     }
 
 
-    public void btnSave_OnAction(ActionEvent actionEvent) {
+    public void btnSave_OnAction(ActionEvent actionEvent) throws DuplicateEntryException, NotFoundException, DuplicateEntryException {
 
         if (!isValidated()) {
             return;
@@ -79,8 +88,9 @@ public class NewStudentFormController {
             } else {
                 StudentTM tm = (StudentTM) root.getUserData();
 
-                tm.setFullName(txtStudentName.getText());
+                tm.setName(txtStudentName.getText());
                 tm.setAddress(txtAddress.getText());
+                tm.setNic(txtNIC.getText());
                 studentService.updateStudent(student);
             }
             new Alert(Alert.AlertType.NONE, "Student has been saved successfully", ButtonType.OK).show();
