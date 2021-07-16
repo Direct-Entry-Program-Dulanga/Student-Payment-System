@@ -3,16 +3,16 @@ package Model;
 public class StudentTM {
 
     private String nic;
-    private String fullName;
+    private String name;
     private String address;
 
     public StudentTM() {
     }
 
-    public StudentTM(String nic, String fullName, String address) {
-        this.nic = nic;
-        this.fullName = fullName;
-        this.address = address;
+    public StudentTM(String nic, String name, String address) {
+        this.setNic(nic);
+        this.setName(name);
+        this.setAddress(address);
     }
 
     public String getNic() {
@@ -23,12 +23,12 @@ public class StudentTM {
         this.nic = nic;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getName() {
+        return name;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getAddress() {
@@ -37,5 +37,14 @@ public class StudentTM {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    @Override
+    public String toString() {
+        return "StudentTM{" +
+                "nic='" + nic + '\'' +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                '}';
     }
 }
