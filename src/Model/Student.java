@@ -1,6 +1,8 @@
 package Model;
 
-public class Student {
+import java.io.Serializable;
+
+public class Student implements Serializable {
 
     private String nic;
     private String fullName;
@@ -57,5 +59,16 @@ public class Student {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Student{" +
+                "nic='" + nic + '\'' +
+                ", fullName='" + fullName + '\'' +
+                ", address='" + address + '\'' +
+                ", contact='" + contact + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
