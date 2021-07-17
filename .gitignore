@@ -1,4 +1,7 @@
 .idea
 out/
 SPSystem.iml
-
+*.db
+*.rdb
+**/.DS_Store
+*.iml
