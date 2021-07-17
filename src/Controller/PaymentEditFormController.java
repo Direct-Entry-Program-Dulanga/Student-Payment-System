@@ -3,6 +3,8 @@ package Controller;
 import Model.Payment;
 import Model.PaymentTM;
 import Services.PaymentService;
+import Services.exception.DuplicateEntryException;
+import Services.exception.FailedOperationException;
 import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -50,7 +52,7 @@ public class PaymentEditFormController {
 
     }
 
-    public void btnSave_OnAction(ActionEvent actionEvent) {
+    public void btnSave_OnAction(ActionEvent actionEvent) throws FailedOperationException, DuplicateEntryException {
         if (!isValidated()) {
             return;
         } else {

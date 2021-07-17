@@ -3,6 +3,7 @@ package Controller;
 import Model.Payment;
 import Model.PaymentTM;
 import Services.PaymentService;
+import Services.exception.FailedOperationException;
 import Services.util.AppBarIcon;
 import Services.util.MaterialUI;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -67,7 +68,7 @@ public class PaymentFormController {
                 paymentService.deleteStudent(tm.getCid());
                 tblAPayment.getItems().remove(tm);
             }
-        } catch (RuntimeException e) {
+        } catch (RuntimeException | FailedOperationException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to delete the item", ButtonType.OK).show();
         }
     }
