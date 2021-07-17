@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXRippler?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="root" fx:id="root" prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@css/StudentFormStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.HomeFormController">
+   <children>
+      <JFXRippler layoutX="139.0" layoutY="116.0" prefHeight="96.0" prefWidth="289.0">
+         <children>
+            <AnchorPane fx:id="pneAddNewStudent" onKeyPressed="#pneAddNewStudent_OnKeyPress" onKeyReleased="#pneAddNewStudent_OnKeyReleased" onMouseClicked="#pneAddNewStudent_OnMouseClicked" prefHeight="93.0" prefWidth="318.0" style="-fx-background-color: #985EFF; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="menu">
+               <children>
+                  <Label layoutX="95.0" layoutY="56.0" text="Click to add a new student">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="62.0" fitWidth="71.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/StudentRegistration.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="95.0" layoutY="23.0" styleClass="menu-title" text="Add New Student">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </JFXRippler>
+      <JFXRippler layoutX="139.0" layoutY="229.0" prefHeight="96.0" prefWidth="322.0">
+         <children>
+            <AnchorPane fx:id="pneSearchStudents" onKeyPressed="#pneSearchStudents_OnKeyPress" onKeyReleased="#pneSearchStudents_OnKeyReleased" onMouseClicked="#pneSearchStudents_OnMouseClicked" prefHeight="96.0" prefWidth="338.0" style="-fx-background-color: #985EFF; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="menu">
+               <children>
+                  <Label layoutX="95.0" layoutY="56.0" text="Click to view payments">
+                     <font>
+                        <Font size="12.0" />
+                     </font>
+                  </Label>
+                  <ImageView fitHeight="62.0" fitWidth="71.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@assets/SearchClient.png" />
+                     </image>
+                  </ImageView>
+                  <Label layoutX="95.0" layoutY="23.0" styleClass="menu-title" text="View Payments">
+                     <font>
+                        <Font size="24.0" />
+                     </font>
+                  </Label>
+               </children>
+            </AnchorPane>
+         </children>
+      </JFXRippler>
+      <Label layoutX="135.0" layoutY="48.0" prefHeight="30.0" prefWidth="345.0" text="Student Managment System">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="213.0" layoutY="379.0" text="Copyright © 2021 SPS. MIT Licensed.">
+         <font>
+            <Font size="10.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
