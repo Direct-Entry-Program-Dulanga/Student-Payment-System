@@ -260,7 +260,7 @@
                 <Font size="10.0" />
             </font>
         </Label>
-            <JFXButton fx:id="btnSave" alignment="CENTER" layoutX="211.0" layoutY="637.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#btnSave_OnAction" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #985EFF;" text="UPDATE STUDENT">
+            <JFXButton fx:id="btnSave" alignment="CENTER" layoutX="211.0" layoutY="637.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"  prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #985EFF;" text="UPDATE STUDENT">
                 <font>
                     <Font size="14.0" />
                 </font>
