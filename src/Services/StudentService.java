@@ -1,16 +1,20 @@
 package Services;
 
 import Model.Student;
+import Services.exception.DuplicateEntryException;
+import Services.exception.FailedOperationException;
+import Services.exception.NotFoundException;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class StudentService {
-    public static List<Student> studentsList = new ArrayList<>();
-
     private static final File dbFile = new File("Student.db");
-//    static{
+    private static List<Student> studentsList = new ArrayList<>();
+
+
+    //    static{
 //
 //        /* Let's add some dummy data */
 //        Student s1 = new Student("945678124v", "Sadun ", "Colombo", "077-1234567", "abc@ijse.lk");
@@ -31,16 +35,29 @@ public class StudentService {
 
     public StudentService() {}
 
-    public void saveStudent(Student student) {
-        studentsList.add(student);
-        writeDataToFile();
+    public void saveStudent(Student student) throws DuplicateEntryException, FailedOperationException {
+        if(exitsStudent(student.getNic())){
+            throw new DuplicateEntryException();
+        }
+        try {
+            studentsList.add(student);
+            writeDataToFile();
+        }catch (FailedOperationException e){
+            studentsList.remove(student);
+            throw e;
+        }
     }
 
-    public void updateStudent(Student student) {
+    public void updateStudent(Student student) throws NotFoundException, FailedOperationException {
         Student s = findStudent(student.getNic());
         int index = studentsList.indexOf(s);
-        studentsList.set(index, student);
-        writeDataToFile();
+        try {
+            studentsList.set(index, student);
+            writeDataToFile();
+        }catch (FailedOperationException e){
+            studentsList.set(index, s);
+            throw e;
+        }
     }
 
 
@@ -48,6 +65,14 @@ public class StudentService {
         return studentsList;
     }
 
+    private boolean exitsStudent(String nic){
+        for(Student student: studentsList){
+            if(student.getNic().equals(nic)){
+                return true;
+            }
+        }
+        return false;
+    }
     public Student findStudent(String registerID) {
         for (Student student : studentsList) {
 
@@ -75,13 +100,14 @@ public class StudentService {
     }
 
 
-    private void writeDataToFile(){
+    private void writeDataToFile() throws FailedOperationException {
         try(FileOutputStream fos = new FileOutputStream(dbFile);
             ObjectOutputStream oos = new ObjectOutputStream(fos)){
 
             oos.writeObject(studentsList);
-        }catch (IOException e){
+        }catch (Throwable e){
             e.printStackTrace();
+            throw new FailedOperationException();
         }
     }
 
@@ -96,7 +122,11 @@ public class StudentService {
             studentsList = (ArrayList<Student>) ois.readObject();
 
         }catch (IOException | ClassNotFoundException e) {
-            e.printStackTrace();
+            if(e instanceof EOFException){
+                dbFile.delete();
+            }else{
+                e.printStackTrace();
+            }
         }
     }
 

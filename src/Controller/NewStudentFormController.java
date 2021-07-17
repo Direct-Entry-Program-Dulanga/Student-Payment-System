@@ -3,6 +3,9 @@ package Controller;
 import Model.Student;
 import Model.StudentTM;
 import Services.StudentService;
+import Services.exception.DuplicateEntryException;
+import Services.exception.FailedOperationException;
+import Services.exception.NotFoundException;
 import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -57,7 +60,7 @@ public class NewStudentFormController {
     }
 
 
-    public void btnSave_OnAction(ActionEvent actionEvent) {
+    public void btnSave_OnAction(ActionEvent actionEvent) throws NotFoundException, DuplicateEntryException, FailedOperationException {
 
         if (!isValidated()) {
             return;
