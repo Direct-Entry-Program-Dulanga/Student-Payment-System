@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXProgressBar?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" style="-fx-background-color: #985EFF;" stylesheets="@css/SplashScreenStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.SplashScreenFormController">
+   <children>
+      <ImageView fitHeight="443.0" fitWidth="487.0" layoutX="29.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" style="visibility: true;" AnchorPane.bottomAnchor="30.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="30.0" AnchorPane.topAnchor="30.0">
+         <image>
+            <Image url="@assets/SplashLogo.png" />
+         </image>
+      </ImageView>
+      <Label layoutX="219.0" layoutY="362.0" text="Loading..." />
+      <JFXProgressBar fx:id="pgb" layoutX="207.0" layoutY="352.0" prefHeight="4.0" prefWidth="86.0" progress="0.0" style="-fx-background-color: #985EFF;" />
+   </children>
+</AnchorPane>
