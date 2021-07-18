@@ -1,6 +1,7 @@
 package Services;
 
 import Model.Payment;
+import Model.Student;
 import Services.exception.DuplicateEntryException;
 import Services.exception.NotFoundException;
 import Services.util.JedisClient;
@@ -69,19 +70,18 @@ public class PaymentServiceRedis {
         for (String cid : cidList) {
 
             if (cid.contains(query)) {
-                searchResult.add(Payment.fromMap(cid.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + cid)));
+                searchResult.add(Payment.fromMap(cid.replace(DB_PREFIX, ""), client.hgetAll(cid)));
             } else {
                 List<String> data = client.hvals(DB_PREFIX + cid);
 
                 for (String value : data) {
                     if (value.contains(query)) {
-                        searchResult.add(Payment.fromMap(cid.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + cid)));
+                        searchResult.add(Payment.fromMap(cid.replace(DB_PREFIX, ""), client.hgetAll(cid)));
                         break;
                     }
                 }
             }
         }
-
         return searchResult;
     }
 }

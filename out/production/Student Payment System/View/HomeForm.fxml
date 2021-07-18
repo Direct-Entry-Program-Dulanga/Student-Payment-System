@@ -36,7 +36,7 @@
          <children>
             <AnchorPane fx:id="pneSearchStudents" onKeyPressed="#pneSearchStudents_OnKeyPress" onKeyReleased="#pneSearchStudents_OnKeyReleased" onMouseClicked="#pneSearchStudents_OnMouseClicked" prefHeight="96.0" prefWidth="338.0" style="-fx-background-color: #985EFF; -fx-background-radius: 10; -fx-border-radius: 10;" styleClass="menu">
                <children>
-                  <Label layoutX="95.0" layoutY="56.0" text="Click to view payments">
+                  <Label layoutX="95.0" layoutY="56.0" text="Click to view Students">
                      <font>
                         <Font size="12.0" />
                      </font>
@@ -46,7 +46,7 @@
                         <Image url="@assets/SearchClient.png" />
                      </image>
                   </ImageView>
-                  <Label layoutX="95.0" layoutY="23.0" styleClass="menu-title" text="View Payments">
+                  <Label layoutX="95.0" layoutY="23.0" styleClass="menu-title" text="View Students">
                      <font>
                         <Font size="24.0" />
                      </font>

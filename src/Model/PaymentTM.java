@@ -1,9 +1,10 @@
 package Model;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class PaymentTM {
+public class PaymentTM implements Serializable {
     private String cid;
     private String courseName;
     private String register;

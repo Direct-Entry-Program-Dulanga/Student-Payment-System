@@ -12,7 +12,7 @@ import java.util.Set;
 
 public class StudentServiceRedis {
 
-    private static final String DB_PREFIX = "S#";
+    private static final String DB_PREFIX = "s#";
     private final Jedis client;
 
     public StudentServiceRedis() {
@@ -21,7 +21,7 @@ public class StudentServiceRedis {
 
     public void saveStudent(Student student) throws DuplicateEntryException {
 
-        if (client.exists( DB_PREFIX + student.getNic())) {
+        if (client.exists(DB_PREFIX + student.getNic())) {
             throw new DuplicateEntryException();
         }
         client.hset(DB_PREFIX + student.getNic(), student.toMap());
@@ -43,7 +43,7 @@ public class StudentServiceRedis {
     }
 
     private boolean exitsStudent(String nic) {
-        return client.exists(DB_PREFIX +nic);
+        return client.exists(DB_PREFIX + nic);
     }
 
     public Student findStudent(String nic) throws NotFoundException {
@@ -58,7 +58,7 @@ public class StudentServiceRedis {
         Set<String> nicList = client.keys(DB_PREFIX + "*");
 
         for (String nic : nicList) {
-            studentList.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + nic)));
+            studentList.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll( nic)));
         }
         return studentList;
     }
@@ -70,20 +70,18 @@ public class StudentServiceRedis {
         for (String nic : nicList) {
 
             if (nic.contains(query)){
-                searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + nic)));
+                searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(nic)));
             }else{
                 List<String> data = client.hvals(DB_PREFIX + nic);
 
                 for (String value : data) {
                     if (value.contains(query)){
-                        searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + nic)));
+                        searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(nic)));
                         break;
                     }
                 }
             }
         }
-
         return searchResult;
     }
-
 }
