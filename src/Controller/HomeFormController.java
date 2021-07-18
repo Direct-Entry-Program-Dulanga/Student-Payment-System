@@ -29,7 +29,7 @@ public class HomeFormController {
     }
 
     public void pneSearchStudents_OnMouseClicked(MouseEvent mouseEvent) {
-        navigate("Search Registrations", "/View/SearchStudentForm.fxml");
+        navigate("Search Students", "/View/SearchStudentForm.fxml");
     }
 
     public void pneAddNewStudent_OnMouseClicked(MouseEvent mouseEvent) throws IOException {
@@ -44,7 +44,7 @@ public class HomeFormController {
 
     public void pneSearchStudents_OnKeyReleased(KeyEvent keyEvent) {
         if (keyEvent.getCode() == KeyCode.ENTER || keyEvent.getCode() == KeyCode.SPACE) {
-            navigate("Search Registrations", "/View/SearchStudentForm.fxml");
+            navigate("Search Students", "/View/SearchStudentForm.fxml");
         }
     }
 

@@ -5,6 +5,7 @@ import Model.PaymentTM;
 import Services.PaymentService;
 import Services.exception.DuplicateEntryException;
 import Services.exception.FailedOperationException;
+import Services.exception.NotFoundException;
 import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXButton;
 import javafx.application.Platform;
@@ -17,7 +18,6 @@ import javafx.scene.layout.AnchorPane;
 
 
 public class PaymentEditFormController {
-    private final PaymentService paymentService = new PaymentService();
     public AnchorPane root;
     public TextField txtCourseID;
     public Label lblCID;
@@ -30,46 +30,55 @@ public class PaymentEditFormController {
     public JFXButton btnSave;
     public Label lblTitle;
 
-    public void initialize() {
+    private final PaymentService paymentService = new PaymentService();
+
+    public void initialize(){
         MaterialUI.paintTextFields(txtCourseID, txtCourseName, txtRegister, txtPayment);
 //        setCourse();
 
-        Platform.runLater(() -> {
+        Platform.runLater(()->{
 
-            if (root.getUserData() != null) {
+            if (root.getUserData() != null){
                 PaymentTM tm = (PaymentTM) root.getUserData();
-                Payment payment = paymentService.findStudent(tm.getCid());
+                Payment payment = null;
+                payment = paymentService.findPayment(tm.getCid());
 
                 txtCourseID.setText(payment.getCid());
                 txtCourseName.setText(payment.getCourseName());
-                txtRegister.setText(String.valueOf(payment.getPayment()));
-                txtPayment.setText(String.valueOf(payment.getPayment()));
-                btnSave.setText("UPDATE STUDENT");
-                lblTitle.setText("Update Student");
+                txtRegister.setText(payment.getRegister());
+                txtPayment.setText(payment.getPayment());
+                btnSave.setText("UPDATE PAYMENT");
+                lblTitle.setText("Update Payment");
 
             }
         });
 
     }
 
-    public void btnSave_OnAction(ActionEvent actionEvent) throws FailedOperationException, DuplicateEntryException {
+    public void btnSave_OnAction(ActionEvent actionEvent) throws NotFoundException, DuplicateEntryException, FailedOperationException {
         if (!isValidated()) {
             return;
         } else {
             Payment payment = new Payment(
                     txtCourseID.getText(),
                     txtCourseName.getText(),
-                    Float.parseFloat(txtRegister.getText()),
-                    Float.parseFloat(txtPayment.getText()));
+                    txtRegister.getText(),
+                    txtPayment.getText());
 
-            if (btnSave.getText().equals("UPDATE STUDENT")) {
-                paymentService.saveStudent(payment);
+            if (btnSave.getText().equals("ADD NEW PAYMENT")) {
+                paymentService.savePayment(payment);
+                txtPayment.clear();
+                txtCourseID.clear();
+                txtCourseName.clear();
+                txtRegister.clear();
             } else {
                 PaymentTM tm = (PaymentTM) root.getUserData();
+
                 tm.setCourseName(txtCourseName.getText());
-                paymentService.updateStudent(payment);
+                tm.setCid(txtCourseID.getText());
+                paymentService.updatePayment(payment);
             }
-            new Alert(Alert.AlertType.NONE, "Student has been saved successfully", ButtonType.OK).show();
+            new Alert(Alert.AlertType.NONE, "Payment has been saved successfully", ButtonType.OK).show();
         }
     }
 
@@ -80,20 +89,20 @@ public class PaymentEditFormController {
         String register = txtRegister.getText();
         String payment = txtPayment.getText();
 
-        if (!(cid.length() == 10 && cid.matches("^[C][-]\\d{2,}"))) {
-            lblCID.setText("(!) Invalid NIC");
+        if(!cid.matches("^[C][-]\\d{3,}")){
+            lblCID.setText("(!) Invalid Course ID");
             return false;
-        } else if (!(CName.trim().length() >= 3 || CName.matches("[A-za-z\\s]|[.]"))) {
-            lblCName.setText("(!) Invalid User Name");
+        }else if (!(CName.trim().length() >= 3 || CName.matches("[A-za-z\\s]|[.]"))) {
+            lblCName.setText("(!) Invalid Course Name");
             lblCID.setVisible(false);
             txtCourseID.requestFocus();
             return false;
-        } else if (!register.matches("^\\d{3,}[.]\\d$")) {
+        }else if(!register.matches("^\\d{3,}[.]\\d{2,}$")) {
             lblRegister.setText("(!) Invalid Register Payment");
             lblRegister.setVisible(false);
             txtRegister.requestFocus();
             return false;
-        } else if (!payment.matches("^\\d{3,}[.]\\d$")) {
+        }else if(!payment.matches("^\\d{3,}[.]\\d{2,}$")){
             lblPayment.setText("(!) Invalid Full Payment");
             lblRegister.setVisible(false);
             txtPayment.requestFocus();

@@ -4,6 +4,7 @@ import Model.Payment;
 import Model.PaymentTM;
 import Services.PaymentService;
 import Services.exception.FailedOperationException;
+import Services.exception.NotFoundException;
 import Services.util.AppBarIcon;
 import Services.util.MaterialUI;
 import javafx.beans.property.ReadOnlyObjectWrapper;
@@ -41,39 +42,39 @@ public class PaymentFormController {
             imgEdit.getStyleClass().add("action-icons");
             imgTrash.getStyleClass().add("action-icons");
 
-            imgEdit.setOnMouseClicked(event -> updateStudent(param.getValue()));
-            imgTrash.setOnMouseClicked(event -> deleteStudent(param.getValue()));
+            imgEdit.setOnMouseClicked(event -> updatePayment(param.getValue()));
+            imgTrash.setOnMouseClicked(event -> deletePayment(param.getValue()));
 
             return new ReadOnlyObjectWrapper<>(new HBox(10, imgEdit, imgTrash));
         });
 
-        txtQuery.textProperty().addListener((observable, oldValue, newValue) -> loadAllStudents(newValue));
+        txtQuery.textProperty().addListener((observable, oldValue, newValue) -> loadAllPayment(newValue));
 
-        loadAllStudents("");
+        loadAllPayment("");
     }
 
-    private void loadAllStudents(String query) {
+    private void loadAllPayment(String query) {
         tblAPayment.getItems().clear();
 
-        for (Payment payment : paymentService.findStudents(query)) {
+        for (Payment payment : paymentService.findPayments(query)) {
             tblAPayment.getItems().add(new PaymentTM(payment.getCid(), payment.getCourseName(), payment.getRegister(), payment.getPayment()));
             System.out.println(tblAPayment.getItems());
         }
     }
 
-    private void deleteStudent(PaymentTM tm) {
+    private void deletePayment(PaymentTM tm) {
         try {
-            Optional<ButtonType> buttonType = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to delete this student?", ButtonType.YES, ButtonType.NO).showAndWait();
+            Optional<ButtonType> buttonType = new Alert(Alert.AlertType.CONFIRMATION, "Are you sure to delete this Course?", ButtonType.YES, ButtonType.NO).showAndWait();
             if (buttonType.get() == ButtonType.YES) {
-                paymentService.deleteStudent(tm.getCid());
+                paymentService.deletePayment(tm.getCid());
                 tblAPayment.getItems().remove(tm);
             }
-        } catch (RuntimeException | FailedOperationException e) {
+        } catch (FailedOperationException | NotFoundException e) {
             new Alert(Alert.AlertType.ERROR, "Failed to delete the item", ButtonType.OK).show();
         }
     }
 
-    private void updateStudent(PaymentTM tm) {
+    private void updatePayment(PaymentTM tm) {
         try {
             Stage secondaryStage = new Stage();
             FXMLLoader loader = new FXMLLoader(this.getClass().getResource("/View/MainForm.fxml"));

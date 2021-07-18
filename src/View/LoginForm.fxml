@@ -70,7 +70,7 @@
                   <Label maxHeight="-Infinity" minHeight="-Infinity" prefHeight="47.0" prefWidth="98.0" />
                   <JFXRippler maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="47.0" prefWidth="150.0">
                      <children>
-                        <AnchorPane fx:id="pneLogin" onMouseClicked="#pneLogin_OnMouseClicked" prefHeight="93.0" prefWidth="320.0" style="-fx-background-color: #985EFF; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="menu">
+                        <AnchorPane fx:id="pneLogin" onMouseClicked="#pneLogin_MouseOnAction" prefHeight="93.0" prefWidth="320.0" style="-fx-background-color: #985EFF; -fx-background-radius: 5; -fx-border-radius: 5;" styleClass="menu">
                            <children>
                               <Label layoutX="50.0" layoutY="12.0" prefHeight="18.0" prefWidth="51.0" styleClass="menu-title" text="LOGIN" AnchorPane.bottomAnchor="5.0" AnchorPane.topAnchor="5.0">
                                  <font>

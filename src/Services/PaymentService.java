@@ -1,9 +1,9 @@
 package Services;
 
 import Model.Payment;
-import Model.Student;
 import Services.exception.DuplicateEntryException;
 import Services.exception.FailedOperationException;
+import Services.exception.NotFoundException;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -17,74 +17,97 @@ public class PaymentService {
         readDataFromFile();
     }
 
-    public PaymentService() {}
+    public PaymentService() {
+    }
 
-    public void saveStudent(Payment payment) throws DuplicateEntryException, FailedOperationException {
-        if(exitsPayment(payment.getCid())){
+    private static void readDataFromFile() {
+
+        if (!dbFile.exists()) return;
+
+
+        try (FileInputStream fis = new FileInputStream(dbFile);
+             ObjectInputStream ois = new ObjectInputStream(fis)) {
+
+            paymentList = (ArrayList<Payment>) ois.readObject();
+
+        } catch (IOException | ClassNotFoundException e) {
+            if (e instanceof EOFException) {
+                dbFile.delete();
+            } else {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void savePayment(Payment payment) throws DuplicateEntryException, FailedOperationException {
+        if (exitsPayment(payment.getCid())) {
             throw new DuplicateEntryException();
         }
         try {
             paymentList.add(payment);
             writeDataToFile();
-        }catch (FailedOperationException e){
+        } catch (FailedOperationException e) {
             paymentList.remove(payment);
             throw e;
         }
     }
 
-
-    public void updateStudent(Payment payment) throws FailedOperationException {
-        Payment p = findStudent(payment.getCid());
+    public void updatePayment(Payment payment) throws NotFoundException, FailedOperationException {
+        Payment p = findPayment(payment.getCid());
         int index = paymentList.indexOf(p);
         try {
             paymentList.set(index, payment);
             writeDataToFile();
-        }catch (FailedOperationException e){
+        } catch (FailedOperationException e) {
             paymentList.set(index, p);
             throw e;
         }
     }
 
-    public void deleteStudent(String id) throws FailedOperationException {
-        Payment payment = findStudent(id);
-        try {
+    public void deletePayment(String CID) throws NotFoundException, FailedOperationException {
+        Payment payment = findPayment(CID);
+
+        try{
             paymentList.remove(payment);
             writeDataToFile();
         }catch (FailedOperationException e){
+            paymentList.add(payment);
             throw e;
         }
-
-
     }
-    public List<Payment> findAllStudents() {
+
+    public List<Payment> findAllPayments() {
         return paymentList;
     }
 
-    private boolean exitsPayment(String id){
-        for(Payment payment: paymentList){
-            if(payment.getCid().equals(id)){
+    private boolean exitsPayment(String CID) {
+        for (Payment payment : paymentList) {
+            if (payment.getCid().equals(CID)) {
                 return true;
             }
         }
         return false;
     }
-    public Payment findStudent(String id) {
+
+    public Payment findPayment(String CID) {
         for (Payment payment : paymentList) {
 
-            if (payment.getCid().equals(id)) {
+            if (payment.getCid().equals(CID)) {
                 return payment;
             }
         }
         return null;
     }
 
-    public List<Payment> findStudents(String query) {
+    public List<Payment> findPayments(String query) {
         List<Payment> result = new ArrayList<>();
 
         for (Payment payment : paymentList) {
 
             if (payment.getCid().contains(query) ||
-                    payment.getCourseName().contains(query)) {
+                    payment.getCourseName().contains(query) ||
+                    payment.getRegister().contains(query) ||
+                    payment.getPayment().contains(query)) {
                 result.add(payment);
             }
         }
@@ -92,32 +115,13 @@ public class PaymentService {
     }
 
     private void writeDataToFile() throws FailedOperationException {
-        try(FileOutputStream fos = new FileOutputStream(dbFile);
-            ObjectOutputStream oos = new ObjectOutputStream(fos)){
+        try (FileOutputStream fos = new FileOutputStream(dbFile);
+             ObjectOutputStream oos = new ObjectOutputStream(fos)) {
 
             oos.writeObject(paymentList);
-        }catch (Throwable e){
+        } catch (Throwable e) {
             e.printStackTrace();
             throw new FailedOperationException();
-        }
-    }
-
-    private static void readDataFromFile(){
-
-        if(!dbFile.exists()) return;
-
-
-        try(FileInputStream fis = new FileInputStream(dbFile);
-            ObjectInputStream ois = new ObjectInputStream(fis)){
-
-            paymentList = (ArrayList<Payment>) ois.readObject();
-
-        }catch (IOException | ClassNotFoundException e) {
-            if(e instanceof EOFException){
-                dbFile.delete();
-            }else{
-                e.printStackTrace();
-            }
         }
     }
 }

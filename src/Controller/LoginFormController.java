@@ -21,19 +21,18 @@ public class LoginFormController {
         MaterialUI.paintTextFields(txtPassword, txtUserName);
     }
 
-    public void pneLogin_OnMouseClicked(MouseEvent mouseEvent) {
+    public void pneLogin_MouseOnAction(MouseEvent mouseEvent) {
         if (txtUserName.getText().equals("User") && txtPassword.getText().equals("123")) {
             navigate("Student Payment System", "/View/HomeForm.fxml");
             lblError.setVisible(false);
             lblError.setText("Success");
-
         } else if (txtUserName.getText().equals("Admin") && txtPassword.getText().equals("123")) {
             navigate("Student Payment System", "/View/HomeAdminForm.fxml");
             lblError.setVisible(false);
             lblError.setText("Success");
-        } else if (txtUserName.getText().isEmpty() && txtPassword.getText().isEmpty()) {
+        } else if (txtUserName.getText().isEmpty() || txtPassword.getText().isEmpty()) {
             lblError.setVisible(true);
-            lblError.setText("Please Enter your UserName & Password...");
+            lblError.setText("Please Verify your UserName & Password...");
         } else {
             txtUserName.clear();
             txtPassword.clear();
@@ -47,7 +46,5 @@ public class LoginFormController {
         ctrl.navigate(title, url, AppBarIcon.NAV_ICON_BACK, () ->
                 ctrl.navigate("Student Payment System", "/View/LoginForm.fxml", AppBarIcon.NAV_ICON_BACK));
     }
-
-
 }
 

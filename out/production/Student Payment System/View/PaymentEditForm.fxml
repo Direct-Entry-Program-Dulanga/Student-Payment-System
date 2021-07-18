@@ -12,7 +12,7 @@
 
 <AnchorPane id="root" fx:id="root" prefHeight="500.0" prefWidth="600.0" style="-fx-background-color: white;" stylesheets="@css/StudentFormStyles.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller.PaymentEditFormController">
     <children>
-        <Label fx:id="lblTitle" layoutX="199.0" layoutY="36.0" text="Register Student">
+        <Label fx:id="lblTitle" layoutX="190.0" layoutY="39.0" text="Add New Payment">
             <font>
                 <Font size="24.0" />
             </font>
@@ -159,7 +159,7 @@
                 </HBox>
                 <BorderPane>
                     <center>
-                        <JFXButton fx:id="btnSave" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#btnSave_OnAction" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #985EFF;" text="ADD NEW STUDENT" BorderPane.alignment="CENTER">
+                        <JFXButton fx:id="btnSave" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onAction="#btnSave_OnAction" prefHeight="40.0" prefWidth="166.0" style="-fx-background-color: #985EFF;" text="ADD NEW PAYMENT" BorderPane.alignment="CENTER">
                             <font>
                                 <Font size="14.0" />
                             </font></JFXButton>
