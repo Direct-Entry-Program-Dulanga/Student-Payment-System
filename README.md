@@ -10,7 +10,11 @@ Student Payment System is a Java Fx Application. It creates for Manage Payment d
 
 2. Once cloned, open the repository from the IntelliJ IDEA
 
-3. Go to the File > Project Structure and create a library for the jfoenix-8.0.10
+3. Go to the File > Project Structure and create a library for the 
+   - jfoenix-8.0.10, commons-codec-1.15.jar 
+   - commons-pool2-2.9.0.jar, 
+   - [jedis-3.6.1.jar and slf4j-api-1.7.30.jar]
+    
 
 4. Then add jFoenix to the module
 
@@ -32,12 +36,11 @@ Student Payment System is a Java Fx Application. It creates for Manage Payment d
 1. Prototype can be found here in [Figma](https://www.figma.com/file/yemZ6IKY6Z5HOxXHExEWbb/Student-Payment-System?node-id=7%3A0) 
 
 
-
 ### License
 
 Version 1.0 , 14 June 2021
 
-Copyright &copy; 2021 DEP-7. All rights reserved.
+Copyright &copy; 2021 Student Payment System. All rights reserved.
 
 Licensed under the [MIT](LICENSE) license
 
