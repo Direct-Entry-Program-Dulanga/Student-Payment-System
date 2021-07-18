@@ -1,6 +1,7 @@
 package Controller;
 
 import Services.util.AppBarIcon;
+import Services.util.MaterialUI;
 import com.jfoenix.controls.JFXProgressBar;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
@@ -9,6 +10,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Duration;

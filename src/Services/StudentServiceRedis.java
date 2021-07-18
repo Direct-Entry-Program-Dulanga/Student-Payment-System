@@ -21,7 +21,7 @@ public class StudentServiceRedis {
 
     public void saveStudent(Student student) throws DuplicateEntryException {
 
-        if (client.exists(DB_PREFIX + student.getNic())) {
+        if (client.exists( DB_PREFIX + student.getNic())) {
             throw new DuplicateEntryException();
         }
         client.hset(DB_PREFIX + student.getNic(), student.toMap());
@@ -43,7 +43,7 @@ public class StudentServiceRedis {
     }
 
     private boolean exitsStudent(String nic) {
-        return client.exists(DB_PREFIX + nic);
+        return client.exists(DB_PREFIX +nic);
     }
 
     public Student findStudent(String nic) throws NotFoundException {
@@ -69,13 +69,13 @@ public class StudentServiceRedis {
 
         for (String nic : nicList) {
 
-            if (nic.contains(query)) {
+            if (nic.contains(query)){
                 searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + nic)));
-            } else {
+            }else{
                 List<String> data = client.hvals(DB_PREFIX + nic);
 
                 for (String value : data) {
-                    if (value.contains(query)) {
+                    if (value.contains(query)){
                         searchResult.add(Student.fromMap(nic.replace(DB_PREFIX, ""), client.hgetAll(DB_PREFIX + nic)));
                         break;
                     }
